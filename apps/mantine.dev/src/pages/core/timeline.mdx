@@ -16,13 +16,39 @@ Control timeline appearance with the following props:
 - `color` – color from theme that should be used to highlight active items, defaults to `theme.primaryColor`
 - `lineWidth` – controls line width and bullet border
 - `bulletSize` – bullet width, height and border-radius
-- `align` – defines line and bullets position relative to content, also sets text-align
+- `align` – defines line and bullets position relative to content: `left`, `right`, or `center`
+- `compact` – if set, reduces spacing between items
 
 <Demo data={TimelineDemos.configurator} />
 
 ## Bullet as React node
 
 <Demo data={TimelineDemos.bullet} />
+
+## Center alignment
+
+Set `align="center"` to display the timeline with a centered line. Use the `side` prop
+on `Timeline.Item` to control which side (`left` or `right`) the content appears on.
+Items default to the right side when no `side` prop is specified.
+
+<Demo data={TimelineDemos.centerAlign} />
+
+## Compact mode
+
+Set `compact` prop to reduce spacing between timeline items. This works with all
+alignment modes.
+
+<Demo data={TimelineDemos.compact} />
+
+## Timeline.Group
+
+Use `Timeline.Group` to display parallel content on both sides of the timeline simultaneously.
+This is useful for showing related events that happen at the same time. `Timeline.Group`
+accepts `left` and `right` props for the content on each side, and an optional `bullet` prop.
+
+Note: `Timeline.Group` is intended for use with `align="center"`.
+
+<Demo data={TimelineDemos.group} />
 
 ## Wrap Timeline.Item
 

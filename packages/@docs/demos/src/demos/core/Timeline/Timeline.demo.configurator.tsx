@@ -47,9 +47,11 @@ export const configurator: MantineDemo = {
       data: [
         { label: 'Left', value: 'left' },
         { label: 'Right', value: 'right' },
+        { label: 'Center', value: 'center' },
       ],
       initialValue: 'left',
       libraryValue: 'left',
     },
+    { prop: 'compact', type: 'boolean', initialValue: false, libraryValue: false },
   ],
 };

@@ -17,3 +17,18 @@ export const Demo_bullet = {
   name: '⭐ Demo: bullet',
   render: renderDemo(demos.bullet),
 };
+
+export const Demo_centerAlign = {
+  name: '⭐ Demo: centerAlign',
+  render: renderDemo(demos.centerAlign),
+};
+
+export const Demo_compact = {
+  name: '⭐ Demo: compact',
+  render: renderDemo(demos.compact),
+};
+
+export const Demo_group = {
+  name: '⭐ Demo: group',
+  render: renderDemo(demos.group),
+};
