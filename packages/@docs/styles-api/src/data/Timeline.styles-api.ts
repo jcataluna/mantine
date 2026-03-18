@@ -9,6 +9,10 @@ export const TimelineStylesApi: StylesApiData<TimelineFactory> = {
     itemTitle: 'Item title, controlled by title prop',
     itemContent: 'Item content, controlled by children prop',
     itemBullet: 'Item bullet',
+    group: 'Group root element, used for parallel items',
+    groupLeft: 'Group left content area',
+    groupRight: 'Group right content area',
+    groupBullet: 'Group bullet',
   },
 
   vars: {
@@ -24,13 +28,23 @@ export const TimelineStylesApi: StylesApiData<TimelineFactory> = {
   modifiers: [
     {
       modifier: 'data-active',
-      selector: ['item', 'itemBullet'],
-      condition: 'Item index is =< Timeline active prop',
+      selector: ['item', 'itemBullet', 'group', 'groupBullet'],
+      condition: 'Item/Group index is =< Timeline active prop',
     },
     {
       modifier: 'data-line-active',
+      selector: ['item', 'group'],
+      condition: 'Item/Group index is < Timeline active prop',
+    },
+    {
+      modifier: 'data-side',
       selector: ['item'],
-      condition: 'Item index is < Timeline active prop',
+      condition: 'Timeline align is center, value is left or right',
+    },
+    {
+      modifier: 'data-compact',
+      selector: ['root'],
+      condition: 'Timeline compact prop is set',
     },
   ],
 };

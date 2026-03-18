@@ -28,7 +28,7 @@ export interface TimelineItemProps
     ElementProps<'div', 'title'> {
   __active?: boolean;
   __lineActive?: boolean;
-  __align?: 'right' | 'left';
+  __align?: 'right' | 'left' | 'center';
 
   /** Item title, displayed next to the bullet */
   title?: React.ReactNode;
@@ -47,6 +47,9 @@ export interface TimelineItemProps
 
   /** Controls line border style @default `'solid'` */
   lineVariant?: 'solid' | 'dashed' | 'dotted';
+
+  /** Side of the timeline to display content on, only used when Timeline `align` is `center` @default `'right'` */
+  side?: 'left' | 'right';
 }
 
 export type TimelineItemFactory = Factory<{
@@ -74,6 +77,7 @@ export const TimelineItem = factory<TimelineItemFactory>((_props, ref) => {
     lineVariant,
     children,
     title,
+    side,
     mod,
     ...others
   } = props;
@@ -86,7 +90,7 @@ export const TimelineItem = factory<TimelineItemFactory>((_props, ref) => {
   return (
     <Box
       {...ctx.getStyles('item', { ...stylesApiProps, className, style })}
-      mod={[{ 'line-active': __lineActive, active: __active }, mod]}
+      mod={[{ 'line-active': __lineActive, active: __active, side: __align === 'center' ? (side || 'right') : undefined }, mod]}
       ref={ref}
       __vars={{
         '--tli-radius': radius ? getRadius(radius) : undefined,

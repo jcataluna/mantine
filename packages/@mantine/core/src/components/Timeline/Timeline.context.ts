@@ -3,6 +3,7 @@ import type { TimelineFactory } from './Timeline';
 
 interface TimelineContextValue {
   getStyles: GetStylesApi<TimelineFactory>;
+  align?: 'left' | 'right' | 'center';
 }
 
 export const [TimelineProvider, useTimelineContext] = createSafeContext<TimelineContextValue>(

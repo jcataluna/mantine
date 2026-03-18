@@ -305,3 +305,197 @@ export function AlignRight() {
     </div>
   );
 }
+
+/* Simple card component for center/group demos */
+function TaskCard({
+  title,
+  status,
+  duration,
+  color = '#228be6',
+}: {
+  title: string;
+  status: string;
+  duration: string;
+  color?: string;
+}) {
+  return (
+    <div
+      style={{
+        border: '1px solid #dee2e6',
+        borderRadius: 8,
+        padding: '12px 16px',
+        minWidth: 180,
+        backgroundColor: '#fff',
+      }}
+    >
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
+        <div
+          style={{
+            width: 8,
+            height: 8,
+            borderRadius: '50%',
+            backgroundColor: color,
+          }}
+        />
+        <Text fw={600} size="sm" style={{ textTransform: 'uppercase' }}>
+          {title}
+        </Text>
+        <Text
+          size="xs"
+          style={{
+            marginLeft: 'auto',
+            backgroundColor: color,
+            color: '#fff',
+            borderRadius: 4,
+            padding: '2px 8px',
+          }}
+        >
+          {status}
+        </Text>
+      </div>
+      <Text size="xs" c="dimmed">
+        Duration: {duration}
+      </Text>
+    </div>
+  );
+}
+
+export function CenterAlign() {
+  return (
+    <div style={{ margin: 40, maxWidth: 800 }}>
+      <Text fw={700} size="lg" mb="md">
+        Center-aligned Timeline with items on both sides
+      </Text>
+      <Timeline active={3} bulletSize={20} lineWidth={2} align="center">
+        <Timeline.Item
+          side="left"
+          bullet={<IconGitBranch size={12} />}
+          title="Step 1"
+        >
+          <TaskCard title="Initialize" status="OK" duration="0.5s" color="#40c057" />
+        </Timeline.Item>
+
+        <Timeline.Item
+          side="right"
+          bullet={<IconGitCommit size={12} />}
+          title="Step 2"
+        >
+          <TaskCard title="Detect Language" status="OK" duration="3.65s" color="#40c057" />
+        </Timeline.Item>
+
+        <Timeline.Item
+          side="left"
+          bullet={<IconGitPullRequest size={12} />}
+          title="Step 3"
+        >
+          <TaskCard title="Translate" status="OK" duration="2.1s" color="#40c057" />
+        </Timeline.Item>
+
+        <Timeline.Item
+          side="right"
+          bullet={<IconMessageDots size={12} />}
+          title="Step 4"
+        >
+          <TaskCard title="Validate" status="PENDING" duration="--" color="#fab005" />
+        </Timeline.Item>
+      </Timeline>
+    </div>
+  );
+}
+
+export function CenterAlignCompact() {
+  return (
+    <div style={{ margin: 40, maxWidth: 800 }}>
+      <Text fw={700} size="lg" mb="md">
+        Center-aligned + Compact spacing
+      </Text>
+      <Timeline active={4} bulletSize={16} lineWidth={2} align="center" compact>
+        <Timeline.Item side="left">
+          <TaskCard title="Initialize" status="OK" duration="0.5s" color="#40c057" />
+        </Timeline.Item>
+
+        <Timeline.Item side="right">
+          <TaskCard title="Detect Language" status="OK" duration="3.65s" color="#40c057" />
+        </Timeline.Item>
+
+        <Timeline.Item side="left">
+          <TaskCard title="Translate" status="OK" duration="2.1s" color="#40c057" />
+        </Timeline.Item>
+
+        <Timeline.Item side="right">
+          <TaskCard title="Summarize" status="OK" duration="1.8s" color="#40c057" />
+        </Timeline.Item>
+
+        <Timeline.Item side="left">
+          <TaskCard title="Validate" status="PENDING" duration="--" color="#fab005" />
+        </Timeline.Item>
+      </Timeline>
+    </div>
+  );
+}
+
+export function GroupParallel() {
+  return (
+    <div style={{ margin: 40, maxWidth: 800 }}>
+      <Text fw={700} size="lg" mb="md">
+        Timeline.Group – Parallel items on both sides
+      </Text>
+      <Timeline active={3} bulletSize={20} lineWidth={2} align="center" compact>
+        <Timeline.Item side="right">
+          <TaskCard title="Initialize" status="OK" duration="0.5s" color="#40c057" />
+        </Timeline.Item>
+
+        <Timeline.Group
+          bullet={<IconGitCommit size={12} />}
+          left={
+            <TaskCard title="Detect Language" status="OK" duration="3.65s" color="#40c057" />
+          }
+          right={
+            <TaskCard title="Extract Entities" status="OK" duration="2.1s" color="#40c057" />
+          }
+        />
+
+        <Timeline.Group
+          bullet={<IconGitPullRequest size={12} />}
+          left={
+            <TaskCard title="Translate" status="OK" duration="4.2s" color="#40c057" />
+          }
+          right={
+            <>
+              <TaskCard title="Summarize" status="OK" duration="1.8s" color="#40c057" />
+              <TaskCard title="Sentiment" status="OK" duration="0.9s" color="#40c057" />
+            </>
+          }
+        />
+
+        <Timeline.Item side="left">
+          <TaskCard title="Finalize" status="PENDING" duration="--" color="#fab005" />
+        </Timeline.Item>
+      </Timeline>
+    </div>
+  );
+}
+
+export function CompactLeftAlign() {
+  return (
+    <div style={{ margin: 40 }}>
+      <Text fw={700} size="lg" mb="md">
+        Compact spacing (left-aligned)
+      </Text>
+      <Timeline active={2} bulletSize={20} lineWidth={2} compact>
+        <Timeline.Item bullet={<IconGitBranch size={12} />} title="Step 1">
+          <Text c="dimmed" size="sm">Created branch</Text>
+        </Timeline.Item>
+        <Timeline.Item bullet={<IconGitCommit size={12} />} title="Step 2">
+          <Text c="dimmed" size="sm">Pushed commits</Text>
+        </Timeline.Item>
+        <Timeline.Item bullet={<IconGitPullRequest size={12} />} title="Step 3">
+          <Text c="dimmed" size="sm">Opened PR</Text>
+        </Timeline.Item>
+        <Timeline.Item bullet={<IconMessageDots size={12} />} title="Step 4">
+          <Text c="dimmed" size="sm">Code review</Text>
+        </Timeline.Item>
+      </Timeline>
+    </div>
+  );
+}

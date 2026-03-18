@@ -19,9 +19,10 @@ import {
 } from '../../core';
 import { TimelineProvider } from './Timeline.context';
 import classes from './Timeline.module.css';
+import { TimelineGroup, TimelineGroupStylesNames } from './TimelineGroup/TimelineGroup';
 import { TimelineItem, TimelineItemStylesNames } from './TimelineItem/TimelineItem';
 
-export type TimelineStylesNames = 'root' | TimelineItemStylesNames;
+export type TimelineStylesNames = 'root' | TimelineItemStylesNames | TimelineGroupStylesNames;
 export type TimelineCssVariables = {
   root: '--tl-line-width' | '--tl-bullet-size' | '--tl-color' | '--tl-icon-color' | '--tl-radius';
 };
@@ -30,7 +31,7 @@ export interface TimelineProps
   extends BoxProps,
     StylesApiProps<TimelineFactory>,
     ElementProps<'div'> {
-  /** `Timeline.Item` components */
+  /** `Timeline.Item` and `Timeline.Group` components */
   children?: React.ReactNode;
 
   /** Index of the active element */
@@ -45,8 +46,8 @@ export interface TimelineProps
   /** Size of the bullet @default `20` */
   bulletSize?: number | string;
 
-  /** Position of content relative to the bullet @default `'left'` */
-  align?: 'right' | 'left';
+  /** Position of content relative to the bullet. `center` enables dual-side layout. @default `'left'` */
+  align?: 'right' | 'left' | 'center';
 
   /** Control width of the line */
   lineWidth?: number | string;
@@ -56,6 +57,9 @@ export interface TimelineProps
 
   /** If set, adjusts text color based on background color for `filled` variant */
   autoContrast?: boolean;
+
+  /** If set, reduces spacing between timeline items @default `false` */
+  compact?: boolean;
 }
 
 export type TimelineFactory = Factory<{
@@ -65,6 +69,7 @@ export type TimelineFactory = Factory<{
   vars: TimelineCssVariables;
   staticComponents: {
     Item: typeof TimelineItem;
+    Group: typeof TimelineGroup;
   };
 }>;
 
@@ -106,6 +111,7 @@ export const Timeline = factory<TimelineFactory>((_props, ref) => {
     reverseActive,
     mod,
     autoContrast,
+    compact,
     attributes,
     ...others
   } = props;
@@ -139,8 +145,8 @@ export const Timeline = factory<TimelineFactory>((_props, ref) => {
   );
 
   return (
-    <TimelineProvider value={{ getStyles }}>
-      <Box {...getStyles('root')} mod={[{ align }, mod]} ref={ref} {...others}>
+    <TimelineProvider value={{ getStyles, align }}>
+      <Box {...getStyles('root')} mod={[{ align, compact }, mod]} ref={ref} {...others}>
         {items}
       </Box>
     </TimelineProvider>
@@ -150,3 +156,4 @@ export const Timeline = factory<TimelineFactory>((_props, ref) => {
 Timeline.classes = classes;
 Timeline.displayName = '@mantine/core/Timeline';
 Timeline.Item = TimelineItem;
+Timeline.Group = TimelineGroup;
